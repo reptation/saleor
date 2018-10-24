@@ -1,5 +1,6 @@
 import graphene
 from graphene import relay
+from textwrap import dedent
 
 from ...menu import models
 from ..core.types.common import CountableDjangoObjectType
@@ -12,8 +13,8 @@ class MenuItem(CountableDjangoObjectType):
         description='List of menu item children items')
 
     class Meta:
-        description = """Represents a single item of the related menu.
-        Can store categories, collection or pages."""
+        description = dedent("""Represents a single item of the related menu.
+        Can store categories, collection or pages.""")
         interfaces = [relay.Node]
         exclude_fields = ['sort_order', 'lft', 'rght', 'tree_id']
         filter_fields = {}
@@ -29,8 +30,8 @@ class Menu(CountableDjangoObjectType):
         description='List of menu items of the menu')
 
     class Meta:
-        description = """Represents a single menu - an object that is used
-        to help navigate through the store."""
+        description = dedent("""Represents a single menu - an object that is
+        used to help navigate through the store.""")
         interfaces = [relay.Node]
         exclude_fields = ['json_content']
         filter_fields = {}

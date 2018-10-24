@@ -1,5 +1,6 @@
 import graphene
 from graphene import relay
+from textwrap import dedent
 
 from ...discount import DiscountValueType, VoucherType, models
 from ..core.types.common import CountableDjangoObjectType
@@ -7,8 +8,8 @@ from ..core.types.common import CountableDjangoObjectType
 
 class Voucher(CountableDjangoObjectType):
     class Meta:
-        description = """A token that can be used to purchase products
-        for discounted price."""
+        description = dedent("""A token that can be used to purchase products
+        for discounted price.""")
         interfaces = [relay.Node]
         filter_fields = {
             'name': ['icontains'],
@@ -22,8 +23,8 @@ class Voucher(CountableDjangoObjectType):
 
 class Sale(CountableDjangoObjectType):
     class Meta:
-        description = """A special event featuring discounts
-        for selected products"""
+        description = dedent("""A special event featuring discounts
+        for selected products""")
         interfaces = [relay.Node]
         filter_fields = {
             'name': ['icontains'],

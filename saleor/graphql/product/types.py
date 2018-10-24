@@ -4,6 +4,7 @@ import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql.error import GraphQLError
+from textwrap import dedent
 
 from ...product import models
 from ...product.templatetags.product_images import get_thumbnail
@@ -92,8 +93,8 @@ class Attribute(CountableDjangoObjectType):
         AttributeValue, description=AttributeDescriptions.VALUES)
 
     class Meta:
-        description = """Custom attribute of a product. Attributes can be
-        assigned to products and variants at the product type level."""
+        description = dedent("""Custom attribute of a product. Attributes can be
+        assigned to products and variants at the product type level.""")
         exclude_fields = []
         interfaces = [relay.Node]
         filter_fields = ['id', 'slug']
@@ -124,8 +125,9 @@ class ProductVariant(CountableDjangoObjectType):
         required=True, description='Quantity of a product available for sale.')
     price_override = graphene.Field(
         Money,
-        description="""Override the base price of a product if necessary.
-        A value of `null` indicates that the default product price is used.""")
+        description=dedent("""Override the base price of a product if necessary.
+        A value of `null` indicates that the default product
+        price is used."""))
     price = graphene.Field(Money, description="Price of the product variant.")
     attributes = graphene.List(
         SelectedAttribute,
@@ -141,8 +143,8 @@ class ProductVariant(CountableDjangoObjectType):
         query as it uses optimizations suitable for such calculations.''')
 
     class Meta:
-        description = """Represents a version of a product such as different
-        size or color."""
+        description = dedent("""Represents a version of a product such as
+        different size or color.""")
         exclude_fields = ['variant_images']
         interfaces = [relay.Node]
         model = models.ProductVariant
@@ -212,12 +214,12 @@ class Product(CountableDjangoObjectType):
         size=graphene.Argument(graphene.Int, description='Size of thumbnail'))
     availability = graphene.Field(
         ProductAvailability,
-        description="""Informs about product's availability in the storefront,
-        current price and discounts.""")
+        description=dedent("""Informs about product's availability in the
+        storefront, current price and discounts."""))
     price = graphene.Field(
         Money,
-        description="""The product's base price (without any discounts
-        applied).""")
+        description=dedent("""The product's base price (without any discounts
+        applied)."""))
     attributes = graphene.List(
         SelectedAttribute,
         description='List of attributes assigned to this product.')
@@ -230,8 +232,8 @@ class Product(CountableDjangoObjectType):
         description='Get a single product image by ID')
 
     class Meta:
-        description = """Represents an individual item for sale in the
-        storefront."""
+        description = dedent("""Represents an individual item for sale in the
+        storefront.""")
         interfaces = [relay.Node]
         model = models.Product
 
@@ -285,8 +287,8 @@ class ProductType(CountableDjangoObjectType):
         Attribute, description='Product attributes of that product type.')
 
     class Meta:
-        description = """Represents a type of product. It defines what
-        attributes are available to products of this type."""
+        description = dedent("""Represents a type of product. It defines what
+        attributes are available to products of this type.""")
         interfaces = [relay.Node]
         model = models.ProductType
         filter_fields = ['id']
@@ -342,9 +344,9 @@ class Category(CountableDjangoObjectType):
     background_image = graphene.Field(Image)
 
     class Meta:
-        description = """Represents a single category of products. Categories
-        allow to organize products in a tree-hierarchies which can be used for
-        navigation in the storefront."""
+        description = dedent("""Represents a single category of products.
+        Categories allow to organize products in a tree-hierarchies which can
+        be used for navigation in the storefront.""")
         exclude_fields = [
             'lft', 'rght', 'tree_id', 'voucher_set', 'sale_set',
             'menuitem_set']
