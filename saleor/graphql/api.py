@@ -3,6 +3,7 @@ import graphql_jwt
 from graphene_django import DjangoConnectionField
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required, permission_required
+from textwrap import dedent
 
 from .account.mutations import (
     CustomerCreate, CustomerUpdate, CustomerPasswordReset, CustomerRegister,
@@ -88,8 +89,8 @@ class Query(ProductQueries):
             OrderStatusFilter, description='Filter order by status'),
         description='List of the shop\'s orders.')
     homepage_events = DjangoConnectionField(
-        OrderEvent, description='''List of activity events to display on
-        homepage (at the moment it only contains order-events).''')
+        OrderEvent, description=dedent('''List of activity events to display on
+        homepage (at the moment it only contains order-events).'''))
     page = graphene.Field(
         Page, id=graphene.Argument(graphene.ID), slug=graphene.String(),
         description='Lookup a page by ID or by slug.')
