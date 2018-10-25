@@ -1,6 +1,7 @@
+from textwrap import dedent
+
 import graphene
 from graphene import relay
-from textwrap import dedent
 
 from ...discount import DiscountValueType, VoucherType, models
 from ..core.types.common import CountableDjangoObjectType

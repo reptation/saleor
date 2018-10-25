@@ -1,11 +1,11 @@
 import decimal
+from textwrap import dedent
 
 import graphene
 from graphene import relay
 from graphene.types import Scalar
 from graphene_django import DjangoObjectType
 from measurement.measures import Weight
-from textwrap import dedent
 
 from ...core.weight import convert_weight, get_default_weight_unit
 from ...shipping import ShippingMethodType, models

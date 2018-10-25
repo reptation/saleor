@@ -1,9 +1,10 @@
+from textwrap import dedent
+
 import graphene
 import graphql_jwt
 from graphene_django import DjangoConnectionField
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required, permission_required
-from textwrap import dedent
 
 from .account.mutations import (
     CustomerCreate, CustomerUpdate, CustomerPasswordReset, CustomerRegister,
