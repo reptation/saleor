@@ -21,7 +21,6 @@ from .discount.mutations import (
     VoucherUpdate)
 from .discount.resolvers import resolve_sales, resolve_vouchers
 from .discount.types import Sale, Voucher
-# FIXME: sorting import by putting below line at the beginning breaks app
 from .menu.mutations import (
     AssignNavigation, MenuCreate, MenuDelete, MenuItemCreate, MenuItemDelete,
     MenuItemUpdate, MenuUpdate)
