@@ -7,30 +7,26 @@ from graphene_django.filter import DjangoFilterConnectionField
 from graphql_jwt.decorators import login_required, permission_required
 
 from .account.mutations import (
-    CustomerCreate, CustomerUpdate, CustomerPasswordReset, CustomerRegister,
-    PasswordReset, SetPassword, StaffCreate, StaffDelete, StaffUpdate,
-    AddressCreate, AddressUpdate, AddressDelete)
-from .account.types import AddressValidationData, AddressValidationInput, User
+    AddressCreate, AddressDelete, AddressUpdate, CustomerCreate,
+    CustomerPasswordReset, CustomerRegister, CustomerUpdate, PasswordReset,
+    SetPassword, StaffCreate, StaffDelete, StaffUpdate)
 from .account.resolvers import (
     resolve_address_validator, resolve_customers, resolve_staff_users)
-from .core.types import TaxedMoney, ReportingPeriod
-from .menu.resolvers import resolve_menu, resolve_menus, resolve_menu_items
-from .menu.types import Menu, MenuItem
-# FIXME: sorting import by putting below line at the beginning breaks app
-from .menu.mutations import (
-    AssignNavigation, MenuCreate, MenuDelete, MenuUpdate, MenuItemCreate,
-    MenuItemDelete, MenuItemUpdate)
+from .account.types import AddressValidationData, AddressValidationInput, User
+from .core.mutations import CreateToken, VerifyToken
+from .core.types import ReportingPeriod, TaxedMoney
 from .descriptions import DESCRIPTIONS
-from .discount.resolvers import resolve_sales, resolve_vouchers
-from .discount.types import Sale, Voucher
 from .discount.mutations import (
     SaleCreate, SaleDelete, SaleUpdate, VoucherCreate, VoucherDelete,
     VoucherUpdate)
-from .core.mutations import CreateToken, VerifyToken
-from .order.resolvers import (
-    resolve_order, resolve_orders, resolve_orders_total,
-    resolve_homepage_events)
-from .order.types import Order, OrderStatusFilter, OrderEvent
+from .discount.resolvers import resolve_sales, resolve_vouchers
+from .discount.types import Sale, Voucher
+# FIXME: sorting import by putting below line at the beginning breaks app
+from .menu.mutations import (
+    AssignNavigation, MenuCreate, MenuDelete, MenuItemCreate, MenuItemDelete,
+    MenuItemUpdate, MenuUpdate)
+from .menu.resolvers import resolve_menu, resolve_menu_items, resolve_menus
+from .menu.types import Menu, MenuItem
 from .order.mutations.draft_orders import (
     DraftOrderComplete, DraftOrderCreate, DraftOrderDelete,
     DraftOrderLineCreate, DraftOrderLineDelete, DraftOrderLineUpdate,
@@ -40,19 +36,23 @@ from .order.mutations.fulfillments import (
 from .order.mutations.orders import (
     OrderAddNote, OrderCancel, OrderCapture, OrderMarkAsPaid, OrderRefund,
     OrderRelease, OrderUpdate, OrderUpdateShipping)
-from .page.resolvers import resolve_pages, resolve_page
-from .page.types import Page
+from .order.resolvers import (
+    resolve_homepage_events, resolve_order, resolve_orders,
+    resolve_orders_total)
+from .order.types import Order, OrderEvent, OrderStatusFilter
 from .page.mutations import PageCreate, PageDelete, PageUpdate
+from .page.resolvers import resolve_page, resolve_pages
+from .page.types import Page
 from .product.schema import ProductMutations, ProductQueries
+from .shipping.mutations import (
+    ShippingPriceCreate, ShippingPriceDelete, ShippingPriceUpdate,
+    ShippingZoneCreate, ShippingZoneDelete, ShippingZoneUpdate)
 from .shipping.resolvers import resolve_shipping_zones
 from .shipping.types import ShippingZone
-from .shipping.mutations import (
-    ShippingZoneCreate, ShippingZoneDelete, ShippingZoneUpdate,
-    ShippingPriceCreate, ShippingPriceDelete, ShippingPriceUpdate)
-from .shop.types import Shop
 from .shop.mutations import (
-    AuthorizationKeyAdd, AuthorizationKeyDelete, ShopDomainUpdate,
-    ShopSettingsUpdate, HomepageCollectionUpdate)
+    AuthorizationKeyAdd, AuthorizationKeyDelete, HomepageCollectionUpdate,
+    ShopDomainUpdate, ShopSettingsUpdate)
+from .shop.types import Shop
 
 
 class Query(ProductQueries):

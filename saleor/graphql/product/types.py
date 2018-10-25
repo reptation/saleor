@@ -1,15 +1,15 @@
 import re
+from textwrap import dedent
 
 import graphene
 from graphene import relay
 from graphene_django.filter import DjangoFilterConnectionField
 from graphql.error import GraphQLError
-from textwrap import dedent
 
 from ...product import models
 from ...product.templatetags.product_images import get_thumbnail
 from ...product.utils import (
-    products_with_details, calculate_revenue_for_variant)
+    calculate_revenue_for_variant, products_with_details)
 from ...product.utils.availability import get_availability
 from ...product.utils.costs import (
     get_margin_for_variant, get_product_costs_data)
