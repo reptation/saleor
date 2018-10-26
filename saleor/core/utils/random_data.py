@@ -385,7 +385,8 @@ def create_payment(order):
         variant=settings.DUMMY,
         customer_ip_address=fake.ipv4(),
         order=order,
-        total=order.total.gross,
+        total=order.total.gross.amount,
+        currency=order.total.gross.currency,
         **get_billing_data(order))
 
     provider, provider_params = get_provider(payment.variant)
@@ -401,10 +402,10 @@ def create_payment(order):
     if not random.choice([1, 1, 1, 0]):
         return payment
     # Create capture transaction
-    gateway_capture(payment, payment.total.amount, **provider_params)
+    gateway_capture(payment, payment.total, **provider_params)
     # 25% to refund the payment
     if random.choice([0, 0, 0, 1]):
-        gateway_refund(payment, payment.total.amount, **provider_params)
+        gateway_refund(payment, payment.total, **provider_params)
     return payment
 
 

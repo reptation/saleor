@@ -42,9 +42,9 @@ def clean_order_update_shipping(order, method, errors):
     return errors
 
 
-def try_payment_action(action, money, errors):
+def try_payment_action(action, amount, errors):
     try:
-        action(money)
+        action(amount)
     except (PaymentError, ValueError) as e:
         errors.append(Error(field='payment', message=str(e)))
 
@@ -291,7 +291,9 @@ class OrderMarkAsPaid(BaseMutation):
         if errors:
             return OrderMarkAsPaid(errors=errors)
         defaults = {
-            'total': order.total.gross, 'captured_amount': order.total.gross,
+            'total': order.total.gross.amount,
+            'captured_amount': order.total.gross.amount,
+            'currency': order.total.gross.currency,
             **get_billing_data(order)}
         Payment.objects.get_or_create(
             variant=CustomPaymentChoices.MANUAL,
